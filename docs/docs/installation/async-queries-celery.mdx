@@ -62,7 +62,10 @@ celery --app=superset.tasks.celery_app:app worker --pool=prefork -O fair -c 4
 To start a job which schedules periodic background jobs, run the following command:
 
 ```
-celery --app=superset.tasks.celery_app:app beat
+celery --app=superset.tasks.celery_app:app beat ^*^ celery version < 5
+```
+```
+celery -A superset.tasks.celery_app beat ^*^ celery version >= 5
 ```
 
 To setup a result backend, you need to pass an instance of a derivative of from
@@ -113,5 +116,8 @@ pip install flower
 You can run flower using:
 
 ```
-celery --app=superset.tasks.celery_app:app flower
+celery --app=superset.tasks.celery_app:app flower ^*^ celery version < 5
+```
+```
+celery -A superset.tasks.celery_app flower ^*^ celery version >= 5
 ```
